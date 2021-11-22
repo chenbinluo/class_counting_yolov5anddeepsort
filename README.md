@@ -6,6 +6,7 @@
 - [yolo v5](https://github.com/ultralytics/yolov5)
 - [yolo with deepsort](https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch)
 - [class counting by dyh](https://github.com/dyh/unbox_yolov5_deepsort_counting)
+
 （本人由衷的感谢上述各位大佬公开的repo！！！）
 
 ## 运行环境
@@ -52,4 +53,3 @@ python class_counting.py
 - 更换测试视频在class_counting.py文件下的46行更改；
 - 改变检测类别（增加或减少）在class_counting.py文件下52行更改；
 - 更改统计时间区间在class_counting.py文件下58行更改；
--
