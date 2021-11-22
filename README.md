@@ -15,4 +15,5 @@
 1.下载代码
 - 下载zip文件
 - git clone
-`<hello world>`  
+
+`<$ git clonehttps://github.com/chenbinluo/class_counting_yolov5anddeepsort.git>`  
