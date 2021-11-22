@@ -10,7 +10,9 @@
 ## 运行环境
 - python 3.6+，pip 20+
 - pytorch
-- pip install -r requirements.txt
+- cuda
+- cudnn
+- opencv
 
 ## 运行步骤
 1.下载代码
