@@ -16,4 +16,24 @@
 - 下载zip文件
 - git clone
 
-`<$ git clonehttps://github.com/chenbinluo/class_counting_yolov5anddeepsort.git>`  
+```
+$ git clonehttps://github.com/chenbinluo/class_counting_yolov5anddeepsort.git
+```
+
+2.激活环境
+
+```
+activate torch107
+```
+
+3. 安装软件包
+
+```
+pip install -r requirements.txt
+```
+
+4. 运行程序
+
+```
+python class_counting.py
+```
