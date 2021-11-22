@@ -2,10 +2,11 @@
 ## 简介
 - 本项目实现对视频文件中的车辆、自行车、行人、狗和其他机动车的识别和计数功能；
 - 并且以3秒钟为单位输出每个时间区间内撞击视频检测线的各个类型目标的数量；
-- 项目参考repo包括但不限于：（由衷的感谢在座各位大佬公开的repo）
+- 项目参考repo包括但不限于：
 - [yolo v5](https://github.com/ultralytics/yolov5)
 - [yolo with deepsort](https://github.com/mikel-brostrom/Yolov5_DeepSort_Pytorch)
 - [class counting by dyh](https://github.com/dyh/unbox_yolov5_deepsort_counting)
+（本人由衷的感谢上述各位大佬公开的repo！！！）
 
 ## 运行环境
 - python 3.6+，pip 20+
