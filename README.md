@@ -21,12 +21,12 @@
 
 ## 运行步骤
 1.下载代码
-- 下载zip文件
 - git clone
 
 ```
 $ git clonehttps://github.com/chenbinluo/class_counting_yolov5anddeepsort.git
 ```
+(建议直接下载zip文件更快些)
 
 2.激活环境
 
