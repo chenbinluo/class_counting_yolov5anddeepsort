@@ -4,7 +4,6 @@ from detector import Detector
 import cv2
 import csv
 import os
-
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 if __name__ == '__main__':
@@ -52,11 +51,13 @@ if __name__ == '__main__':
     detector_list = ['person', 'bicycle', 'car', 'dog', 'other_vehicle']
 
     # 初始化各类别的初始统计数量为0
-    count_dict = dict(zip(detector_list, [0 for _ in range(len(detector_list))]))
+    output_count = count_dict = dict(zip(detector_list, [0 for _ in range(len(detector_list))]))
 
     # 初始化输出的时间间隔和初始帧数记录,此处以3秒为单位输出
     t_interval = 3
     frame = 0
+
+    videoWriter = None
 
     # 建立路径和空的csv，按照57行定义的时间间隔为统计频率，将各个类别撞线统计结果逐步写入csv里面
     result_path = os.path.join(os.getcwd(), 'result')
@@ -67,9 +68,12 @@ if __name__ == '__main__':
         writer = csv.writer(df)
         writer.writerow(detector_list)
 
+        # 开始按帧检测和追踪视频里面的目标
         while True:
             # 读取每帧图片
             ret, im = capture.read()
+            # frame的作用是结合fps来作为计时的函数
+            # 基本原理是见line 171
             frame += 1
             if im is None:
                 break
@@ -113,6 +117,7 @@ if __name__ == '__main__':
                             list_overlapping_blue_polygon.append(track_id)
                             if len(label) > 0:
                                 count_dict[label] += 1
+                                output_count[label] += 1
                             pass
                         pass
                     else:
@@ -148,7 +153,7 @@ if __name__ == '__main__':
             # 视频画面播放
             text_draw = ''
             for i in detector_list:
-                text_draw += i + ' : ' + str(count_dict[i]) + ';  '
+                text_draw += i + ' : ' + str(output_count[i]) + ';  '
             output_image_frame = cv2.putText(img=output_image_frame, text=text_draw,
                                              org=draw_text_postion,
                                              fontFace=font_draw_number,
@@ -156,11 +161,18 @@ if __name__ == '__main__':
             cv2.imshow('Visualization', output_image_frame)
             cv2.waitKey(1)
 
+            # 将追踪的结果写入结果文件夹下的result文件里面
+            if videoWriter is None:
+                fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+                videoWriter = cv2.VideoWriter(os.path.join(result_path, 'detection_result.mp4'), fourcc, fps, (output_image_frame.shape[1], output_image_frame.shape[0]))
+            videoWriter.write(output_image_frame)
+            pass
+
             # 计数结果写入csv文件,并把前面一段时间的统计结果清零
             if ret == True and (frame/fps) % t_interval == 0:
                 writer.writerow(count_dict.values())
+                # 将当前时间区间内的结果写入csv文件之后将类别计数结果清空，开始统计下一个时间区间的结果
                 count_dict = dict(zip(detector_list, [0 for _ in range(len(detector_list))]))
-
             pass
         pass
         capture.release()
